@@ -1,0 +1,389 @@
+{
+  "@@locale": "bn",
+  "appName": "সেবার জানালা",
+  "signInTitle": "সাইন ইন",
+  "phoneLabel": "মোবাইল নম্বর",
+  "phoneHint": "01XXXXXXXXX",
+  "pinLabel": "পিন",
+  "signInButton": "সাইন ইন করুন",
+  "signOut": "সাইন আউট",
+  "welcomeUser": "স্বাগতম, {name}",
+  "@welcomeUser": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "language": "ভাষা",
+  "errRequired": "এই ঘরটি পূরণ করতে হবে।",
+  "errPin": "পিন ৪ থেকে ৬ সংখ্যার হতে হবে।",
+  "errNetwork": "ইন্টারনেট সংযোগ নেই। সংযোগ দেখে আবার চেষ্টা করুন।",
+  "errTimeout": "সার্ভার সাড়া দিতে দেরি করছে। আবার চেষ্টা করুন।",
+  "errPinInvalid": "মোবাইল নম্বর বা পিন ভুল।",
+  "errAccountLocked": "অনেকবার ভুল হয়েছে। কিছুক্ষণের জন্য আপনার অ্যাকাউন্ট বন্ধ।",
+  "errPhoneNotRegistered": "এই নম্বরটি নিবন্ধিত নয়।",
+  "errRateLimited": "অনেকবার চেষ্টা হয়েছে। একটু অপেক্ষা করুন।",
+  "errUnauthenticated": "আপনার সেশনের মেয়াদ শেষ। আবার সাইন ইন করুন।",
+  "errGeneric": "কিছু একটা ভুল হয়েছে। আবার চেষ্টা করুন।",
+  "errReference": "রেফারেন্স: {id}",
+  "@errReference": {
+    "placeholders": {
+      "id": {
+        "type": "String"
+      }
+    }
+  },
+  "aiSimulated": "সিমুলেটেড এআই",
+  "aiLive": "লাইভ এআই",
+  "navHome": "হোম",
+  "navOpportunities": "কর্মসূচি",
+  "navProfile": "প্রোফাইল",
+  "searchHint": "কর্মসূচি খুঁজুন",
+  "allCategories": "সব",
+  "catScholarship": "বৃত্তি",
+  "catHealthcare": "স্বাস্থ্যসেবা",
+  "catAgriculture": "কৃষি",
+  "catBusiness": "ব্যবসা",
+  "catLegalAid": "আইনি সহায়তা",
+  "catEmployment": "কর্মসংস্থান",
+  "catFinancial": "আর্থিক",
+  "catSocialWelfare": "সমাজকল্যাণ",
+  "catTraining": "প্রশিক্ষণ",
+  "catDisaster": "দুর্যোগ ত্রাণ",
+  "catResearch": "গবেষণা",
+  "eligEligible": "আপনি যোগ্য হতে পারেন",
+  "eligPartial": "আংশিক মিলেছে",
+  "eligNotEligible": "মিলছে না",
+  "eligUnknown": "আরও তথ্য দরকার",
+  "eligScore": "{score}% মিল",
+  "@eligScore": {
+    "placeholders": {
+      "score": {
+        "type": "int"
+      }
+    }
+  },
+  "retry": "আবার চেষ্টা করুন",
+  "noResults": "কোনো কর্মসূচি পাওয়া যায়নি।",
+  "loadMoreFailed": "আরও লোড করা যায়নি।",
+  "perMonth": "{amount} / মাস",
+  "@perMonth": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "perQuarter": "{amount} / ত্রৈমাসিক",
+  "@perQuarter": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "oneTime": "{amount} এককালীন",
+  "@oneTime": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "amountOnly": "{amount}",
+  "@amountOnly": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "deadlineOn": "শেষ তারিখ: {date}",
+  "@deadlineOn": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "secDescription": "এই কর্মসূচি সম্পর্কে",
+  "secBenefits": "আপনি যা পাবেন",
+  "secHowToApply": "কীভাবে আবেদন করবেন",
+  "secDocuments": "যেসব কাগজ লাগবে",
+  "secWhyEligible": "এই ফলাফলের কারণ",
+  "secProvider": "প্রদানকারী",
+  "secTrust": "তথ্য কতটা নির্ভরযোগ্য",
+  "requiredDoc": "আবশ্যক",
+  "optionalDoc": "ঐচ্ছিক",
+  "tipLabel": "পরামর্শ",
+  "commonMistakeLabel": "সাধারণ ভুল",
+  "verifUnverified": "নমুনা তথ্য, এখনো যাচাই হয়নি",
+  "verifPending": "সরকারি যাচাইয়ের অপেক্ষায়",
+  "verifVerified": "যাচাইকৃত",
+  "verifOutdated": "তথ্য পুরনো হতে পারে",
+  "verifDisputed": "উৎস নিয়ে প্রশ্ন আছে — অফিসে জেনে নিন",
+  "confHigh": "উচ্চ নির্ভরযোগ্যতা",
+  "confMedium": "মাঝারি নির্ভরযোগ্যতা",
+  "confLow": "কম নির্ভরযোগ্যতা",
+  "ruleMet": "মিলেছে",
+  "ruleFailed": "মিলছে না",
+  "ruleUnknown": "জানা নেই",
+  "recommendedForYou": "আপনার জন্য কর্মসূচি",
+  "noRecommendations": "এখনো কোনো মিল নেই। ভালো ফলাফলের জন্য প্রোফাইল সম্পূর্ণ করুন।",
+  "browseAll": "সব কর্মসূচি দেখুন",
+  "officeHours": "অফিস সময়",
+  "phoneLabelShort": "ফোন",
+  "processingTime": "প্রক্রিয়াকরণের সময়",
+  "profileTitle": "আপনার অ্যাকাউন্ট",
+  "phoneValue": "ফোন: {phone}",
+  "@phoneValue": {
+    "placeholders": {
+      "phone": {
+        "type": "String"
+      }
+    }
+  },
+  "districtValue": "জেলা: {district}",
+  "@districtValue": {
+    "placeholders": {
+      "district": {
+        "type": "String"
+      }
+    }
+  },
+  "navAsk": "জিজ্ঞাসা",
+  "chatTitle": "জিজ্ঞাসা",
+  "chatHint": "আপনার প্রশ্ন লিখুন",
+  "chatSend": "পাঠান",
+  "chatNew": "নতুন চ্যাট",
+  "chatHistory": "আগের চ্যাট",
+  "chatNoHistory": "এখনো কোনো আগের চ্যাট নেই।",
+  "chatEmptyTitle": "কীভাবে সাহায্য করতে পারি?",
+  "chatEmptyBody": "ভাতা, বৃত্তি, সহায়তা ও সেবা সম্পর্কে বাংলা বা ইংরেজিতে জিজ্ঞাসা করুন।",
+  "chatSuggestion1": "আমার স্বামী মারা গেছেন, আমি কী সহায়তা পেতে পারি?",
+  "chatSuggestion2": "আমি একজন কৃষক, কী কী সুবিধা আছে?",
+  "chatSuggestion3": "ছাত্রদের জন্য বৃত্তি আছে?",
+  "chatNotSent": "পাঠানো যায়নি। আবার চেষ্টা করতে ট্যাপ করুন।",
+  "chatSending": "পাঠানো হচ্ছে…",
+  "chatThinking": "কর্মসূচি খোঁজা হচ্ছে…",
+  "chatSimulatedNote": "সিমুলেটেড এআই। যোগ্যতার সিদ্ধান্ত লাইভ এআই-এর মতোই।",
+  "chatNextStep": "পরবর্তী ধাপ",
+  "chatViewProgramme": "কর্মসূচি দেখুন",
+  "errAiUnavailable": "সহকারী ব্যস্ত ছিল বা সময় বেশি লেগেছে। আপনার বার্তা রাখা আছে। আবার চেষ্টা করুন।",
+  "voiceStart": "বলুন",
+  "voiceStop": "থামুন ও যা বলেছি তা ব্যবহার করুন",
+  "voiceListening": "শুনছি… শেষ হলে ট্যাপ করুন",
+  "voiceTranscribing": "আপনি কী বলেছেন বুঝছি…",
+  "voiceErrPermission": "মাইক্রোফোনের অনুমতি বন্ধ আছে। ফোনের সেটিংসে চালু করুন, অথবা লিখুন।",
+  "voiceErrUnavailable": "এই ফোনে বা সার্ভারে ভয়েস টাইপিং চালু নেই। অনুগ্রহ করে লিখুন।",
+  "voiceErrLocale": "এই ফোনে বাংলা বক্তৃতা প্যাক নেই। গুগল সেটিংসে ইনস্টল করুন, অথবা লিখুন।",
+  "voiceErrNoSpeech": "কিছু শুনতে পাইনি। মাইক্রোফোনে ট্যাপ করে আবার চেষ্টা করুন।",
+  "voiceErrServer": "আপনার কণ্ঠ লেখায় রূপান্তর করা যায়নি। আবার চেষ্টা করুন, অথবা লিখুন।",
+  "readAloud": "পড়ে শোনান",
+  "stopReading": "পড়া থামান",
+  "navSaved": "আমার তালিকা",
+  "savedTab": "সংরক্ষিত",
+  "plansTab": "পরিকল্পনা",
+  "savedEmpty": "এখনো কিছু সংরক্ষণ করা হয়নি। কোনো কর্মসূচির বুকমার্কে ট্যাপ করলে এখানে থাকবে।",
+  "plansEmpty": "এখনো কোনো পরিকল্পনা নেই। কর্মসূচি খুলে \"পরিকল্পনা করুন\" চাপলে ধাপে ধাপে তালিকা পাবেন।",
+  "saveProgramme": "সংরক্ষণ করুন",
+  "unsaveProgramme": "সংরক্ষণ থেকে সরান",
+  "savedToast": "সংরক্ষিত হয়েছে",
+  "removedToast": "সংরক্ষণ থেকে সরানো হয়েছে",
+  "undo": "ফিরিয়ে আনুন",
+  "makePlan": "পরিকল্পনা করুন",
+  "openPlan": "আমার পরিকল্পনা খুলুন",
+  "changeStatus": "এই বিষয়ে আপনি কোথায় আছেন?",
+  "allStatuses": "সব",
+  "statusInterested": "আগ্রহী",
+  "statusPreparing": "প্রস্তুতি চলছে",
+  "statusDocsReady": "কাগজপত্র তৈরি",
+  "statusApplied": "আবেদন করেছি",
+  "statusUnderReview": "যাচাই চলছে",
+  "statusApproved": "অনুমোদিত",
+  "statusRejected": "অনুমোদিত হয়নি",
+  "statusCompleted": "সম্পন্ন",
+  "progressOf": "{total}টির মধ্যে {done}টি সম্পন্ন",
+  "@progressOf": {
+    "placeholders": {
+      "done": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "priorityHigh": "জরুরি",
+  "priorityMedium": "মাঝারি গুরুত্ব",
+  "priorityLow": "কম গুরুত্ব",
+  "dueOn": "শেষ তারিখ {date}",
+  "@dueOn": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "minutesShort": "{n} মিনিট",
+  "@minutesShort": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "taskUpdateFailed": "এই ধাপটি হালনাগাদ করা যায়নি। আবার চেষ্টা করুন।",
+  "planTitle": "আপনার পরিকল্পনা",
+  "markDone": "সম্পন্ন করুন",
+  "markNotDone": "সম্পন্ন নয়",
+  "createAccount": "নতুন অ্যাকাউন্ট খুলুন",
+  "forgotPin": "পিন ভুলে গেছেন?",
+  "signInWithCode": "কোড দিয়ে সাইন ইন করুন",
+  "haveAccount": "আগে থেকেই অ্যাকাউন্ট আছে? সাইন ইন করুন",
+  "registerTitle": "আপনার অ্যাকাউন্ট খুলুন",
+  "resetPinTitle": "নতুন পিন দিন",
+  "otpLoginTitle": "কোড দিয়ে সাইন ইন",
+  "sendCode": "কোড পাঠান",
+  "codeSentTo": "{phone} নম্বরে ৬ সংখ্যার একটি কোড পাঠানো হয়েছে।",
+  "@codeSentTo": {
+    "placeholders": {
+      "phone": {
+        "type": "String"
+      }
+    }
+  },
+  "codeLabel": "৬ সংখ্যার কোড",
+  "nameLabel": "আপনার নাম",
+  "nameHelp": "জাতীয় পরিচয়পত্রে যেভাবে আছে",
+  "newPinLabel": "একটি পিন দিন (৪ থেকে ৬ সংখ্যা)",
+  "confirmPinLabel": "পিনটি আবার লিখুন",
+  "pinMismatch": "দুটি পিন একই নয়।",
+  "errPhone": "01 দিয়ে শুরু ১১ সংখ্যার নম্বর দিন।",
+  "errName": "আপনার নাম লিখুন (অন্তত ২ অক্ষর)।",
+  "errCode": "৬ সংখ্যার কোডটি লিখুন।",
+  "resendIn": "{seconds} সেকেন্ড পরে আবার পাঠান",
+  "@resendIn": {
+    "placeholders": {
+      "seconds": {
+        "type": "int"
+      }
+    }
+  },
+  "resendCode": "আবার কোড পাঠান",
+  "devCodeLabel": "শুধু ডেভেলপমেন্টের জন্য। কোড: {code}",
+  "@devCodeLabel": {
+    "placeholders": {
+      "code": {
+        "type": "String"
+      }
+    }
+  },
+  "chooseLanguage": "ভাষা",
+  "finishRegister": "অ্যাকাউন্ট খুলুন",
+  "finishResetPin": "পিন সংরক্ষণ করে সাইন ইন করুন",
+  "finishOtpLogin": "সাইন ইন করুন",
+  "changeNumber": "অন্য নম্বর ব্যবহার করুন",
+  "errValidation": "আপনি যা লিখেছেন তা আবার দেখুন।",
+  "errOtpInvalid": "কোডটি সঠিক নয়। দেখে আবার চেষ্টা করুন।",
+  "errOtpExpired": "কোডটির মেয়াদ শেষ। নতুন কোড চান।",
+  "errOtpAttempts": "অনেকবার ভুল কোড দেওয়া হয়েছে। নতুন কোড চান।",
+  "errPhoneExists": "এই নম্বরে আগেই অ্যাকাউন্ট আছে। সাইন ইন করুন।",
+  "errPinWeak": "এই পিনটি সহজেই অনুমান করা যায়। 1234 বা 1111-এর মতো পিন দেবেন না।",
+  "demoHeader": "ডেমো অ্যাকাউন্ট (শুধু ডেভেলপমেন্ট বিল্ডে)",
+  "demoPickHint": "ভূমিকা বেছে নিলে ফোন নম্বর ও পিন নিজে থেকে ভরে যাবে",
+  "demoChooseRole": "ভূমিকা বেছে নিন",
+  "demoRoleLabel": "ডেমো ভূমিকা: {role}",
+  "@demoRoleLabel": {
+    "placeholders": {
+      "role": {
+        "type": "String"
+      }
+    }
+  },
+  "greetMorning": "শুভ সকাল",
+  "greetAfternoon": "শুভ দুপুর",
+  "greetEvening": "শুভ সন্ধ্যা",
+  "homeSpeak": "কথা বলে প্রশ্ন করুন",
+  "homeContinuePlan": "আপনার পরিকল্পনা চালিয়ে যান",
+  "homeNextStep": "পরের ধাপ: {task}",
+  "homeSavedCount": "{count, plural, other{{count}টি কর্মসূচি সংরক্ষিত}}",
+  "homeSavedBody": "ধাপে ধাপে চেকলিস্ট পেতে একটির জন্য পরিকল্পনা করুন।",
+  "homeStartTitle": "আপনি কোন সাহায্য পেতে পারেন জেনে নিন",
+  "homeStartBody": "নিজের ভাষায় আপনার অবস্থা জানান। আমরা মিলে যাওয়া কর্মসূচি খুঁজে দেব।",
+  "homeStartCta": "এখনই জিজ্ঞাসা করুন",
+  "quickAll": "সব কর্মসূচি",
+  "homeCategories": "বিষয় অনুযায়ী খুঁজুন",
+  "moreCategories": "আরও",
+  "fewerCategories": "কম দেখান",
+  "closingSoon": "শিগগিরই শেষ হচ্ছে",
+  "daysLeft": "{days, plural, =0{আজই শেষ দিন} other{আর {days} দিন}}",
+  "seeAll": "সব দেখুন",
+  "keyBenefit": "সুবিধা",
+  "keyDeadline": "শেষ তারিখ",
+  "deadlinePassed": "বন্ধ হয়ে গেছে",
+  "readMore": "আরও পড়ুন",
+  "readLess": "কম দেখান",
+  "callOffice": "কল করুন",
+  "directions": "পথ দেখুন",
+  "website": "ওয়েবসাইট",
+  "applyOnline": "অনলাইনে আবেদন করুন",
+  "secNearbyOffices": "আপনার কাছের অফিস",
+  "rulesSummary": "{total}টির মধ্যে {met}টি শর্ত মিলেছে",
+  "couldNotOpen": "এটি খোলা গেল না। আবার চেষ্টা করুন।",
+  "sourceLabel": "উৎস",
+  "appTagline": "আপনার প্রাপ্য সরকারি সহায়তা খুঁজে নিন",
+  "welcomeBack": "আবার স্বাগতম",
+  "signInSubtitle": "মোবাইল নম্বর ও পিন দিয়ে সাইন ইন করুন।",
+  "showPin": "পিন দেখান",
+  "hidePin": "পিন লুকান",
+  "orDivider": "অথবা",
+  "newHere": "নতুন ব্যবহারকারী?",
+  "pinSafety": "আপনার পিন কাউকে বলবেন না, অফিসের কর্মীকেও না।",
+  "stepOf": "ধাপ {step}/{total}",
+  "codeWillBeSent": "এই নম্বরে এসএমএসে ৬ সংখ্যার একটি কোড পাঠানো হবে।",
+  "registerSubtitle": "এক মিনিটের মতো সময় লাগবে। শুধু মোবাইল নম্বর লাগবে।",
+  "resetPinSubtitle": "নম্বরটি আপনার কিনা যাচাই করে নতুন পিন বেছে নিতে দেব।",
+  "otpLoginSubtitle": "পিনের বদলে এককালীন কোড দিয়ে সাইন ইন করুন।",
+  "enterCodeTitle": "কোডটি লিখুন",
+  "choosePinTitle": "আপনার পিন বেছে নিন",
+  "change": "বদলান",
+  "eligibleOnly": "আমি পেতে পারি",
+  "resultsCount": "{count, plural, other{{count}টি কর্মসূচি}}",
+  "clearFilters": "ফিল্টার মুছুন",
+  "clearSearch": "খোঁজা মুছুন",
+  "noResultsHint": "অন্য শব্দে খুঁজুন, বা কোনো ফিল্টার সরিয়ে দিন।",
+  "voiceSearch": "বলে খুঁজুন",
+  "assistantName": "সহায়তা সহকারী",
+  "today": "আজ",
+  "yesterday": "গতকাল",
+  "copy": "কপি",
+  "copied": "কপি হয়েছে",
+  "chatMicHint": "বাংলা বা ইংরেজিতে বলতে মাইকে চাপ দিন",
+  "chatTryAsking": "এভাবে জিজ্ঞাসা করুন",
+  "scrollToLatest": "সর্বশেষ বার্তায় যান",
+  "openProgramme": "খুলুন",
+  "toDoSection": "করণীয়",
+  "doneSection": "শেষ হয়েছে",
+  "overdue": "সময় পেরিয়ে গেছে",
+  "planCompleteTitle": "সব ধাপ শেষ!",
+  "planCompleteBody": "চমৎকার। আবেদন করার পর আমার তালিকায় অবস্থা হালনাগাদ করুন, যাতে অগ্রগতি দেখতে পারেন।",
+  "gotIt": "ঠিক আছে",
+  "updateStatus": "অবস্থা হালনাগাদ করুন",
+  "yourActivity": "আপনার কার্যক্রম",
+  "settingsSection": "সেটিংস",
+  "textSize": "লেখার আকার",
+  "textNormal": "সাধারণ",
+  "textLarge": "বড়",
+  "textLarger": "আরও বড়",
+  "helpSection": "সাহায্য",
+  "helpline": "সরকারি হেল্পলাইন ৩৩৩",
+  "helplineBody": "যেকোনো সরকারি সেবা সম্পর্কে ফোনে জানুন",
+  "aboutApp": "সেবার জানালা সম্পর্কে",
+  "aboutBody": "সেবার জানালা আপনাকে সেই সরকারি কর্মসূচিগুলো খুঁজে দেয় যেগুলো আপনি পেতে পারেন, কোন কাগজপত্র লাগবে তা জানায় এবং আবেদনের অগ্রগতি মনে রাখতে সাহায্য করে।\n\nযোগ্যতার ফলাফল একটি নির্দেশনা, চূড়ান্ত সিদ্ধান্ত নয়। কর্মসূচি পরিচালনাকারী অফিসই চূড়ান্ত সিদ্ধান্ত নেয়, তাই আবেদনের আগে অবশ্যই তাদের সঙ্গে নিশ্চিত হয়ে নিন।",
+  "signOutConfirmTitle": "সাইন আউট করবেন?",
+  "signOutConfirmBody": "আবার সাইন ইন করতে মোবাইল নম্বর ও পিন লাগবে।",
+  "cancel": "বাতিল",
+  "homeTrustNote": "তথ্য যেখানে সম্ভব সরকারি উৎস থেকে নেওয়া। আবেদনের আগে অবশ্যই অফিসে নিশ্চিত হয়ে নিন।"
+}

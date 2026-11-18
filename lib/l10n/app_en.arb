@@ -1,0 +1,444 @@
+{
+  "@@locale": "en",
+  "appName": "Shebar Janala",
+  "signInTitle": "Sign in",
+  "phoneLabel": "Mobile number",
+  "phoneHint": "01XXXXXXXXX",
+  "pinLabel": "PIN",
+  "signInButton": "Sign in",
+  "signOut": "Sign out",
+  "welcomeUser": "Welcome, {name}",
+  "@welcomeUser": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "language": "Language",
+  "errRequired": "This field is required.",
+  "errPin": "Your PIN must be 4 to 6 digits.",
+  "errNetwork": "No connection. Check your internet and try again.",
+  "errTimeout": "The server is taking too long. Please try again.",
+  "errPinInvalid": "Wrong mobile number or PIN.",
+  "errAccountLocked": "Too many wrong attempts. Your account is locked for a while.",
+  "errPhoneNotRegistered": "This number is not registered.",
+  "errRateLimited": "Too many attempts. Please wait a moment.",
+  "errUnauthenticated": "Your session has expired. Please sign in again.",
+  "errGeneric": "Something went wrong. Please try again.",
+  "errReference": "Reference: {id}",
+  "@errReference": {
+    "placeholders": {
+      "id": {
+        "type": "String"
+      }
+    }
+  },
+  "aiSimulated": "Simulated AI",
+  "aiLive": "Live AI",
+  "navHome": "Home",
+  "navOpportunities": "Programmes",
+  "navProfile": "Profile",
+  "searchHint": "Search programmes",
+  "allCategories": "All",
+  "catScholarship": "Scholarship",
+  "catHealthcare": "Healthcare",
+  "catAgriculture": "Agriculture",
+  "catBusiness": "Business",
+  "catLegalAid": "Legal aid",
+  "catEmployment": "Employment",
+  "catFinancial": "Financial",
+  "catSocialWelfare": "Social welfare",
+  "catTraining": "Training",
+  "catDisaster": "Disaster relief",
+  "catResearch": "Research",
+  "eligEligible": "You may qualify",
+  "eligPartial": "Partly matches",
+  "eligNotEligible": "Not a match",
+  "eligUnknown": "Need more info",
+  "eligScore": "{score}% match",
+  "@eligScore": {
+    "placeholders": {
+      "score": {
+        "type": "int"
+      }
+    }
+  },
+  "retry": "Try again",
+  "noResults": "No programmes found.",
+  "loadMoreFailed": "Could not load more.",
+  "perMonth": "{amount} / month",
+  "@perMonth": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "perQuarter": "{amount} / quarter",
+  "@perQuarter": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "oneTime": "{amount} one-time",
+  "@oneTime": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "amountOnly": "{amount}",
+  "@amountOnly": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "deadlineOn": "Deadline: {date}",
+  "@deadlineOn": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "secDescription": "About this programme",
+  "secBenefits": "What you get",
+  "secHowToApply": "How to apply",
+  "secDocuments": "Documents you need",
+  "secWhyEligible": "Why this result",
+  "secProvider": "Provided by",
+  "secTrust": "How sure are we",
+  "requiredDoc": "Required",
+  "optionalDoc": "Optional",
+  "tipLabel": "Tip",
+  "commonMistakeLabel": "Common mistake",
+  "verifUnverified": "Sample data, not yet verified",
+  "verifPending": "Awaiting official check",
+  "verifVerified": "Verified",
+  "verifOutdated": "May be out of date",
+  "verifDisputed": "Source disputed — check the office",
+  "confHigh": "High confidence",
+  "confMedium": "Medium confidence",
+  "confLow": "Low confidence",
+  "ruleMet": "Matches",
+  "ruleFailed": "Does not match",
+  "ruleUnknown": "Unknown",
+  "recommendedForYou": "Programmes for you",
+  "noRecommendations": "No matches yet. Complete your profile to get better results.",
+  "browseAll": "Browse all programmes",
+  "officeHours": "Office hours",
+  "phoneLabelShort": "Phone",
+  "processingTime": "Processing time",
+  "profileTitle": "Your account",
+  "phoneValue": "Phone: {phone}",
+  "@phoneValue": {
+    "placeholders": {
+      "phone": {
+        "type": "String"
+      }
+    }
+  },
+  "districtValue": "District: {district}",
+  "@districtValue": {
+    "placeholders": {
+      "district": {
+        "type": "String"
+      }
+    }
+  },
+  "navAsk": "Ask",
+  "chatTitle": "Ask",
+  "chatHint": "Type your question",
+  "chatSend": "Send",
+  "chatNew": "New chat",
+  "chatHistory": "Past chats",
+  "chatNoHistory": "No past chats yet.",
+  "chatEmptyTitle": "How can we help?",
+  "chatEmptyBody": "Ask in Bangla or English about benefits, allowances, scholarships and services.",
+  "chatSuggestion1": "My husband passed away. What help can I get?",
+  "chatSuggestion2": "I am a farmer. What support is there?",
+  "chatSuggestion3": "Are there scholarships for students?",
+  "chatNotSent": "Not sent. Tap to try again.",
+  "chatSending": "Sending…",
+  "chatThinking": "Looking for programmes…",
+  "chatSimulatedNote": "Simulated AI. Eligibility decisions are the same as with live AI.",
+  "chatNextStep": "Next step",
+  "chatViewProgramme": "View programme",
+  "errAiUnavailable": "The assistant is busy or took too long. Your message was kept. Please try again.",
+  "voiceStart": "Speak",
+  "voiceStop": "Stop and use what I said",
+  "voiceListening": "Listening… tap to finish",
+  "voiceTranscribing": "Working out what you said…",
+  "voiceErrPermission": "Microphone access is off. Turn it on in your phone's settings, or type instead.",
+  "voiceErrUnavailable": "Voice typing is not available on this phone or server. Please type instead.",
+  "voiceErrLocale": "This phone has no Bangla speech pack installed. Install it in Google settings, or type instead.",
+  "voiceErrNoSpeech": "We did not hear anything. Tap the microphone and try again.",
+  "voiceErrServer": "Could not turn your voice into text. Please try again, or type.",
+  "readAloud": "Read aloud",
+  "stopReading": "Stop reading",
+  "navSaved": "My list",
+  "savedTab": "Saved",
+  "plansTab": "Plans",
+  "savedEmpty": "Nothing saved yet. Tap the bookmark on a programme to keep it here.",
+  "plansEmpty": "No plans yet. Open a programme and tap \"Make a plan\" to get a step-by-step checklist.",
+  "saveProgramme": "Save",
+  "unsaveProgramme": "Remove from saved",
+  "savedToast": "Saved",
+  "removedToast": "Removed from saved",
+  "undo": "Undo",
+  "makePlan": "Make a plan",
+  "openPlan": "Open my plan",
+  "changeStatus": "Where are you with this?",
+  "allStatuses": "All",
+  "statusInterested": "Interested",
+  "statusPreparing": "Preparing",
+  "statusDocsReady": "Documents ready",
+  "statusApplied": "Applied",
+  "statusUnderReview": "Under review",
+  "statusApproved": "Approved",
+  "statusRejected": "Not approved",
+  "statusCompleted": "Completed",
+  "progressOf": "{done} of {total} done",
+  "@progressOf": {
+    "placeholders": {
+      "done": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "priorityHigh": "High priority",
+  "priorityMedium": "Medium priority",
+  "priorityLow": "Low priority",
+  "dueOn": "Due {date}",
+  "@dueOn": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "minutesShort": "{n} min",
+  "@minutesShort": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "taskUpdateFailed": "Could not update that step. Please try again.",
+  "planTitle": "Your plan",
+  "markDone": "Mark done",
+  "markNotDone": "Mark not done",
+  "createAccount": "Create an account",
+  "forgotPin": "Forgot your PIN?",
+  "signInWithCode": "Sign in with a code instead",
+  "haveAccount": "Already have an account? Sign in",
+  "registerTitle": "Create your account",
+  "resetPinTitle": "Set a new PIN",
+  "otpLoginTitle": "Sign in with a code",
+  "sendCode": "Send code",
+  "codeSentTo": "We sent a 6-digit code to {phone}.",
+  "@codeSentTo": {
+    "placeholders": {
+      "phone": {
+        "type": "String"
+      }
+    }
+  },
+  "codeLabel": "6-digit code",
+  "nameLabel": "Your name",
+  "nameHelp": "As it appears on your National ID",
+  "newPinLabel": "Choose a PIN (4 to 6 digits)",
+  "confirmPinLabel": "Type the PIN again",
+  "pinMismatch": "The two PINs are not the same.",
+  "errPhone": "Enter an 11-digit number starting with 01.",
+  "errName": "Enter your name (at least 2 letters).",
+  "errCode": "Enter the 6-digit code.",
+  "resendIn": "Send again in {seconds}s",
+  "@resendIn": {
+    "placeholders": {
+      "seconds": {
+        "type": "int"
+      }
+    }
+  },
+  "resendCode": "Send the code again",
+  "devCodeLabel": "Development only. Code: {code}",
+  "@devCodeLabel": {
+    "placeholders": {
+      "code": {
+        "type": "String"
+      }
+    }
+  },
+  "chooseLanguage": "Language",
+  "finishRegister": "Create account",
+  "finishResetPin": "Save PIN and sign in",
+  "finishOtpLogin": "Sign in",
+  "changeNumber": "Use a different number",
+  "errValidation": "Please check what you entered.",
+  "errOtpInvalid": "That code is not right. Check it and try again.",
+  "errOtpExpired": "That code has expired. Ask for a new one.",
+  "errOtpAttempts": "Too many wrong codes. Ask for a new one.",
+  "errPhoneExists": "This number already has an account. Sign in instead.",
+  "errPinWeak": "That PIN is too easy to guess. Avoid 1234 or repeated digits like 1111.",
+  "demoHeader": "Demo accounts (development builds only)",
+  "demoPickHint": "Pick a role to fill in the phone number and PIN",
+  "demoChooseRole": "Choose a role",
+  "demoRoleLabel": "Demo role: {role}",
+  "@demoRoleLabel": {
+    "placeholders": {
+      "role": {
+        "type": "String"
+      }
+    }
+  },
+  "greetMorning": "Good morning",
+  "greetAfternoon": "Good afternoon",
+  "greetEvening": "Good evening",
+  "homeSpeak": "Speak your question",
+  "homeContinuePlan": "Continue your plan",
+  "homeNextStep": "Next: {task}",
+  "@homeNextStep": {
+    "placeholders": {
+      "task": {
+        "type": "String"
+      }
+    }
+  },
+  "homeSavedCount": "{count, plural, =1{1 programme saved} other{{count} programmes saved}}",
+  "@homeSavedCount": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "homeSavedBody": "Make a plan for one to get a step-by-step checklist.",
+  "homeStartTitle": "Find help you qualify for",
+  "homeStartBody": "Tell us about your situation in your own words. We will find programmes that match.",
+  "homeStartCta": "Ask now",
+  "quickAll": "All programmes",
+  "homeCategories": "Browse by category",
+  "moreCategories": "More",
+  "fewerCategories": "Less",
+  "closingSoon": "Closing soon",
+  "daysLeft": "{days, plural, =0{Last day} =1{1 day left} other{{days} days left}}",
+  "@daysLeft": {
+    "placeholders": {
+      "days": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "seeAll": "See all",
+  "keyBenefit": "Benefit",
+  "keyDeadline": "Deadline",
+  "deadlinePassed": "Closed",
+  "readMore": "Read more",
+  "readLess": "Show less",
+  "callOffice": "Call",
+  "directions": "Directions",
+  "website": "Website",
+  "applyOnline": "Apply online",
+  "secNearbyOffices": "Offices near you",
+  "rulesSummary": "{met} of {total} conditions match",
+  "@rulesSummary": {
+    "placeholders": {
+      "met": {
+        "type": "int",
+        "format": "decimalPattern"
+      },
+      "total": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "couldNotOpen": "Could not open this. Please try again.",
+  "sourceLabel": "Source",
+  "appTagline": "Find the government help you are entitled to",
+  "welcomeBack": "Welcome back",
+  "signInSubtitle": "Sign in with your mobile number and PIN.",
+  "showPin": "Show PIN",
+  "hidePin": "Hide PIN",
+  "orDivider": "or",
+  "newHere": "New here?",
+  "pinSafety": "Never share your PIN with anyone, not even office staff.",
+  "stepOf": "Step {step} of {total}",
+  "@stepOf": {
+    "placeholders": {
+      "step": {
+        "type": "int",
+        "format": "decimalPattern"
+      },
+      "total": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "codeWillBeSent": "We will send a 6-digit code to this number by SMS.",
+  "registerSubtitle": "It takes about a minute. You only need your mobile number.",
+  "resetPinSubtitle": "We will check this is your number, then you can choose a new PIN.",
+  "otpLoginSubtitle": "Use a one-time code instead of your PIN.",
+  "enterCodeTitle": "Enter the code",
+  "choosePinTitle": "Choose your PIN",
+  "change": "Change",
+  "eligibleOnly": "I may qualify",
+  "resultsCount": "{count, plural, =1{1 programme} other{{count} programmes}}",
+  "@resultsCount": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "clearFilters": "Clear filters",
+  "clearSearch": "Clear search",
+  "noResultsHint": "Try other words, or remove a filter.",
+  "voiceSearch": "Search by voice",
+  "assistantName": "Help assistant",
+  "today": "Today",
+  "yesterday": "Yesterday",
+  "copy": "Copy",
+  "copied": "Copied",
+  "chatMicHint": "Tap the mic to speak in Bangla or English",
+  "chatTryAsking": "Try asking",
+  "scrollToLatest": "Go to latest message",
+  "openProgramme": "Open",
+  "toDoSection": "To do",
+  "doneSection": "Done",
+  "overdue": "Overdue",
+  "planCompleteTitle": "All steps done!",
+  "planCompleteBody": "Well done. When you have applied, update where you are in My list so you can follow it.",
+  "gotIt": "Got it",
+  "updateStatus": "Update status",
+  "yourActivity": "Your activity",
+  "settingsSection": "Settings",
+  "textSize": "Text size",
+  "textNormal": "Normal",
+  "textLarge": "Large",
+  "textLarger": "Larger",
+  "helpSection": "Help",
+  "helpline": "Government helpline 333",
+  "helplineBody": "Ask about any government service by phone",
+  "aboutApp": "About Shebar Janala",
+  "aboutBody": "Shebar Janala helps you find government programmes you may qualify for, learn what documents to bring, and keep track of your applications.\n\nEligibility results are a guide, not a decision. The office that runs a programme makes the final decision, so always confirm with them before you apply.",
+  "signOutConfirmTitle": "Sign out?",
+  "signOutConfirmBody": "You will need your mobile number and PIN to sign in again.",
+  "cancel": "Cancel",
+  "homeTrustNote": "Information comes from official sources where available. Always confirm with the office before you apply."
+}
