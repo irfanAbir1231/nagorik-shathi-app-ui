@@ -100,6 +100,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
 
     return Scaffold(
       appBar: AppBar(
+        flexibleSpace: const AppBarBackdrop(),
         titleSpacing: 0,
         title: Row(children: [
           const _AssistantAvatar(size: 38),
@@ -111,7 +112,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
                 Text(
                   lastReply.isSimulated ? l.aiSimulated : l.aiLive,
                   style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                        color: lastReply.isSimulated ? AppColors.warning : AppColors.success,
+                        color: Colors.white.withValues(alpha: 0.85),
                       ),
                 ),
             ]),
@@ -161,7 +162,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
 
   Widget _body(AppLocalizations l, ChatState chat) {
     if (chat.messages.isEmpty && chat.sending) {
-      return const Center(child: CircularProgressIndicator()); // opening a past chat
+      return const Center(child: DotsLoader()); // opening a past chat
     }
     if (chat.messages.isEmpty && chat.error != null) {
       return ErrorRetry(
@@ -316,7 +317,7 @@ class _EmptyState extends StatelessWidget {
                     Container(
                       width: 40,
                       height: 40,
-                      decoration: BoxDecoration(color: color.withValues(alpha: 0.12), shape: BoxShape.circle),
+                      decoration: BoxDecoration(color: Colors.white, shape: BoxShape.circle, border: Border.all(color: color, width: kHairline)),
                       child: Icon(icon, color: color, size: 22),
                     ),
                     const SizedBox(width: 12),
@@ -792,7 +793,7 @@ class _HistorySheet extends ConsumerWidget {
           ),
           Flexible(
             child: async.when(
-              loading: () => const SizedBox(height: 160, child: Center(child: CircularProgressIndicator())),
+              loading: () => const SizedBox(height: 160, child: Center(child: DotsLoader())),
               error: (e, _) => SizedBox(
                 height: 260,
                 child: ErrorRetry(error: e, onRetry: () => ref.invalidate(conversationsProvider)),

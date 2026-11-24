@@ -52,8 +52,9 @@ class _Action extends StatelessWidget {
                 width: 60,
                 height: 60,
                 decoration: BoxDecoration(
-                  color: color.withValues(alpha: 0.14),
+                  color: Colors.white,
                   borderRadius: BorderRadius.circular(20),
+                  border: Border.all(color: color, width: kHairline),
                 ),
                 child: Icon(icon, color: color, size: 30),
               ),

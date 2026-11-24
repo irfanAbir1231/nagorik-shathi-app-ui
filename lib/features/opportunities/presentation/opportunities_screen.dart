@@ -23,6 +23,9 @@ class OpportunitiesScreen extends ConsumerStatefulWidget {
 
 class _OpportunitiesScreenState extends ConsumerState<OpportunitiesScreen> {
   final _scroll = ScrollController();
+
+  // Rows that already faded in, so a row scrolled away and back does not fade again.
+  final _faded = <String>{};
   final _search = TextEditingController();
   Timer? _debounce;
 
@@ -113,24 +116,30 @@ class _OpportunitiesScreenState extends ConsumerState<OpportunitiesScreen> {
     });
 
     return Scaffold(
-      appBar: AppBar(title: Text(l.navOpportunities)),
-      body: Column(children: [
-        Padding(
-          padding: const EdgeInsets.fromLTRB(16, 4, 16, 8),
-          child: _SearchField(
-            controller: _search,
-            listening: listening,
-            partial: listening ? voice.partial : '',
-            transcribing: listening && voice.status == VoiceStatus.transcribing,
-            onChanged: _onQueryChanged,
-            onSubmitted: (v) {
-              _debounce?.cancel();
-              _filters.setQuery(v);
-            },
-            onClear: _clearSearch,
-            onMic: _toggleVoice,
+      appBar: AppBar(
+        flexibleSpace: const AppBarBackdrop(),
+        title: Text(l.navOpportunities),
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(68),
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(16, 4, 16, 14),
+            child: _SearchField(
+              controller: _search,
+              listening: listening,
+              partial: listening ? voice.partial : '',
+              transcribing: listening && voice.status == VoiceStatus.transcribing,
+              onChanged: _onQueryChanged,
+              onSubmitted: (v) {
+                _debounce?.cancel();
+                _filters.setQuery(v);
+              },
+              onClear: _clearSearch,
+              onMic: _toggleVoice,
+            ),
           ),
         ),
+      ),
+      body: Column(children: [
         _FilterBar(filters: filters, counts: list.value?.categoryCounts ?? const {}),
         _ResultsBar(filters: filters, list: list, onClear: _clearAll),
         // A thin bar while a new filter loads over the old results.
@@ -166,7 +175,14 @@ class _OpportunitiesScreenState extends ConsumerState<OpportunitiesScreen> {
                   itemBuilder: (context, i) {
                     if (i == state.items.length) return _ListFooter(state: state);
                     final item = state.items[i];
-                    return FadeSlideIn(index: i, child: OpportunityCard(item: item, onTap: () => context.push('/opportunity/${item.slug}')));
+                    return FadeSlideIn(
+                      // Only the rows on screen when results arrive; rows built
+                      // while scrolling appear in place.
+                      key: ValueKey(item.id),
+                      index: i,
+                      enabled: i < 6 && _faded.add(item.id),
+                      child: OpportunityCard(item: item, onTap: () => context.push('/opportunity/${item.slug}')),
+                    );
                   },
                 ),
               );
@@ -318,7 +334,7 @@ class _Chip extends StatelessWidget {
           onSelected: (_) => onTap(),
           selectedColor: color,
           labelStyle: TextStyle(color: selected ? Colors.white : AppColors.ink, fontWeight: FontWeight.w600),
-          side: BorderSide(color: selected ? color : Theme.of(context).colorScheme.outlineVariant),
+          side: BorderSide(color: selected ? color : Theme.of(context).colorScheme.outlineVariant, width: kHairline),
         ),
       );
 }

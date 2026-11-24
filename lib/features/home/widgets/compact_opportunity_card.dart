@@ -34,10 +34,10 @@ class CompactOpportunityCard extends StatelessWidget {
       child: Card(
         margin: EdgeInsets.zero,
         clipBehavior: Clip.antiAlias,
-        elevation: 0,
+        elevation: 3,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
-          side: BorderSide(color: theme.colorScheme.outlineVariant.withValues(alpha: 0.7)),
+          side: const BorderSide(color: Color(0x4D808080), width: kHairline),
         ),
         child: Tap(
           onTap: onTap,

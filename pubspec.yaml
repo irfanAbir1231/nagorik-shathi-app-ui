@@ -46,6 +46,7 @@ dependencies:
   flutter_tts: ^4.2.5
   path_provider: ^2.1.6
   url_launcher: ^6.3.3
+  flutter_native_splash: ^2.4.8
 
 dev_dependencies:
   flutter_test:
@@ -58,11 +59,7 @@ dev_dependencies:
   # rules and activating additional ones.
   flutter_lints: ^6.0.0
   mocktail: ^1.0.5
-
-# For information on the generic Dart part of this file, see the
-# following page: https://dart.dev/tools/pub/pubspec
-
-# The following section is specific to Flutter packages.
+  flutter_launcher_icons: ^0.14.4
 flutter:
   generate: true
 
@@ -117,3 +114,21 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package
+
+flutter_launcher_icons:
+  android: true
+  ios: false
+  image_path: assets/icon/icon.png
+  adaptive_icon_background: assets/icon/icon_background.png
+  adaptive_icon_foreground: assets/icon/icon_foreground.png
+
+flutter_native_splash:
+  # The launch screen is only the background colour. The mark and the loading
+  # dots come from the app's own splash, so there is one splash, not two.
+  color: "#214A75"
+  image: assets/icon/splash_blank.png
+  android_12:
+    color: "#214A75"
+    image: assets/icon/splash_blank.png
+  ios: false
+  web: false

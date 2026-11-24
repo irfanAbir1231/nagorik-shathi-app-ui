@@ -1,6 +1,9 @@
+import 'dart:async';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/network/api_result.dart';
+import '../../../core/network/cached.dart';
 import '../../../core/providers.dart';
 import '../domain/saved.dart';
 
@@ -8,8 +11,21 @@ import '../domain/saved.dart';
 /// if the server refuses them, so the list never claims something that is not
 /// stored.
 class SavedController extends AsyncNotifier<List<SavedItem>> {
+  /// Opens from the phone's copy when there is one, refreshed behind it.
   @override
-  Future<List<SavedItem>> build() async => (await ref.read(savedRepositoryProvider).list()).unwrap();
+  FutureOr<List<SavedItem>> build() {
+    final repo = ref.read(savedRepositoryProvider);
+    return cachedFirst(
+      ref,
+      id: savedControllerProvider,
+      peek: repo.cachedList,
+      fetch: () async => (await repo.list()).unwrap(),
+      onUpdate: (fresh, shown) {
+        // Never over a change the person made meanwhile.
+        if (identical(state.value, shown)) state = AsyncData(fresh);
+      },
+    );
+  }
 
   /// Saves [opportunityId]. Returns the error, or null on success.
   Future<Err<dynamic>?> save(String opportunityId,

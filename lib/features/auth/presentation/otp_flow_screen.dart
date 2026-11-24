@@ -170,7 +170,7 @@ class _OtpFlowScreenState extends ConsumerState<OtpFlowScreen> {
     final onCode = _issue != null;
 
     return Scaffold(
-      appBar: AppBar(actions: const [Padding(padding: EdgeInsets.only(right: 12), child: LanguageSwitch())]),
+      appBar: AppBar(flexibleSpace: const AppBarBackdrop(), actions: const [Padding(padding: EdgeInsets.only(right: 12), child: LanguageSwitch())]),
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(

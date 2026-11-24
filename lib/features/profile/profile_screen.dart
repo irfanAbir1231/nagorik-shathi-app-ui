@@ -90,9 +90,7 @@ class ProfileScreen extends ConsumerWidget {
               top: MediaQuery.paddingOf(context).top,
               scale: MediaQuery.textScalerOf(context).scale(1),
               title: l.profileTitle,
-              name: user?.name ?? '',
-              phone: user?.phone,
-              district: user?.district,
+              identity: RepaintBoundary(child: _Identity(name: user?.name ?? '', phone: user?.phone, district: user?.district)),
             ),
           ),
           SliverList(delegate: SliverChildListDelegate([
@@ -310,7 +308,7 @@ class _StatTile extends StatelessWidget {
               Container(
                 width: 40,
                 height: 40,
-                decoration: BoxDecoration(color: color.withValues(alpha: 0.12), shape: BoxShape.circle),
+                decoration: BoxDecoration(color: Colors.white, shape: BoxShape.circle, border: Border.all(color: color, width: kHairline)),
                 child: Icon(icon, color: color, size: 22),
               ),
               const SizedBox(height: 8),
@@ -345,7 +343,7 @@ class _RowIcon extends StatelessWidget {
     return Container(
       width: 40,
       height: 40,
-      decoration: BoxDecoration(color: c.withValues(alpha: 0.12), borderRadius: BorderRadius.circular(12)),
+      decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(12), border: Border.all(color: c, width: kHairline)),
       child: Icon(icon, color: c, size: 22),
     );
   }
@@ -393,17 +391,13 @@ class _ProfileBar extends SliverPersistentHeaderDelegate {
     required this.top,
     required this.scale,
     required this.title,
-    required this.name,
-    required this.phone,
-    required this.district,
+    required this.identity,
   });
 
   final double top;
   final double scale;
   final String title;
-  final String name;
-  final String? phone;
-  final String? district;
+  final Widget identity;
 
   @override
   double get minExtent => top + 64;
@@ -428,11 +422,13 @@ class _ProfileBar extends SliverPersistentHeaderDelegate {
             child: Text(title, style: theme.textTheme.titleLarge?.copyWith(color: Colors.white)),
           ),
         ),
-        Positioned(
-          left: 20,
-          right: 20,
-          top: top + 16 + 30 * scale + 18 - shrinkOffset * 0.3,
-          child: Opacity(opacity: fade, child: _Identity(name: name, phone: phone, district: district)),
+        Positioned.fill(
+          top: top + 16 + 30 * scale + 8,
+          child: ClipRect(
+            child: Stack(children: [
+              Positioned(left: 20, right: 20, top: 10 - shrinkOffset * 0.3, child: Opacity(opacity: fade, child: identity)),
+            ]),
+          ),
         ),
       ]),
     );

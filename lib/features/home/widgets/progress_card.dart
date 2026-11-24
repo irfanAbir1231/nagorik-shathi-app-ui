@@ -55,8 +55,8 @@ class _CardShell extends StatelessWidget {
           color: gradient == null ? scheme.surface : null,
           gradient: gradient,
           borderRadius: BorderRadius.circular(24),
-          border: Border.all(color: scheme.outlineVariant.withValues(alpha: 0.6)),
-          boxShadow: [BoxShadow(color: Colors.black.withValues(alpha: 0.06), blurRadius: 16, offset: const Offset(0, 6))],
+          border: Border.all(color: Colors.white.withValues(alpha: 0.6), width: kHairline),
+          boxShadow: [BoxShadow(color: const Color(0x59123456), blurRadius: 14, offset: const Offset(0, 6))],
         ),
         child: Tap(
           onTap: onTap,
@@ -77,67 +77,100 @@ class _PlanCard extends StatelessWidget {
     final l = AppLocalizations.of(context);
     final locale = Localizations.localeOf(context);
     final theme = Theme.of(context);
-    final scheme = theme.colorScheme;
     final next = nextTask(plan);
-    final percent = NumberFormat.percentPattern(locale.languageCode).format(plan.progress);
 
+    const onGreen = Colors.white;
     return _CardShell(
       onTap: () => context.push('/plan/${plan.id}'),
-      child: Row(children: [
-        SizedBox(
-          width: 68,
-          height: 68,
-          child: Stack(fit: StackFit.expand, children: [
-            CircularProgressIndicator(
-              value: plan.progress,
-              strokeWidth: 7,
-              strokeCap: StrokeCap.round,
-              backgroundColor: scheme.primaryContainer,
+      gradient: const LinearGradient(
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+        colors: [AppColors.primaryBright, AppColors.primary],
+      ),
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        Row(children: [
+          Expanded(
+            child: Text(
+              l.homeContinuePlan,
+              style: theme.textTheme.labelLarge?.copyWith(color: onGreen.withValues(alpha: 0.85)),
             ),
-            Center(
-              child: Text(percent, style: theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w700)),
+          ),
+          Container(
+            padding: const EdgeInsets.all(6),
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              border: Border.all(color: onGreen, width: kHairline),
             ),
-          ]),
-        ),
-        const SizedBox(width: 16),
-        Expanded(
-          child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            Text(l.homeContinuePlan, style: theme.textTheme.labelLarge?.copyWith(color: scheme.primary)),
-            const SizedBox(height: 2),
-            Text(
-              plan.title.of(locale),
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-              style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w700),
+            child: const Icon(Icons.arrow_forward_rounded, color: onGreen, size: 20),
+          ),
+        ]),
+        const SizedBox(height: 4),
+        Row(crossAxisAlignment: CrossAxisAlignment.end, children: [
+          TweenAnimationBuilder<double>(
+            tween: Tween(begin: 0, end: plan.progress),
+            duration: const Duration(milliseconds: 900),
+            curve: Curves.easeOutCubic,
+            builder: (context, v, _) => Text(
+              NumberFormat.percentPattern(locale.languageCode).format(v),
+              style: theme.textTheme.displaySmall?.copyWith(color: onGreen, fontWeight: FontWeight.w700, height: 1.1),
             ),
-            const SizedBox(height: 2),
-            Text(l.progressOf(plan.doneCount, plan.tasks.length), style: theme.textTheme.bodySmall),
-            if (next != null) ...[
-              const SizedBox(height: 10),
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-                decoration: BoxDecoration(
-                  color: AppColors.sun.withValues(alpha: 0.22),
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                  Text(
-                    l.homeNextStep(next.title.of(locale)),
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w600, color: AppColors.ink),
-                  ),
-                  if (next.dueDate != null)
-                    Text(
-                      l.dueOn(formatDate(locale, next.dueDate!)),
-                      style: theme.textTheme.bodySmall?.copyWith(color: AppColors.ink),
-                    ),
-                ]),
+          ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 8),
+              child: Text(
+                l.progressOf(plan.doneCount, plan.tasks.length),
+                style: theme.textTheme.bodyMedium?.copyWith(color: onGreen.withValues(alpha: 0.9)),
               ),
-            ],
-          ]),
+            ),
+          ),
+        ]),
+        const SizedBox(height: 10),
+        ClipRRect(
+          borderRadius: BorderRadius.circular(8),
+          child: TweenAnimationBuilder<double>(
+            tween: Tween(begin: 0, end: plan.progress),
+            duration: const Duration(milliseconds: 900),
+            curve: Curves.easeOutCubic,
+            builder: (context, v, _) => LinearProgressIndicator(
+            value: v,
+            minHeight: 8,
+            color: Colors.white,
+            backgroundColor: onGreen.withValues(alpha: 0.25),
+          )),
         ),
-        const Icon(Icons.chevron_right),
+        const SizedBox(height: 14),
+        Text(
+          plan.title.of(locale),
+          maxLines: 2,
+          overflow: TextOverflow.ellipsis,
+          style: theme.textTheme.titleMedium?.copyWith(color: onGreen, fontWeight: FontWeight.w700),
+        ),
+        if (next != null) ...[
+          const SizedBox(height: 10),
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(14),
+            ),
+            child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              Text(
+                l.homeNextStep(next.title.of(locale)),
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                style: theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w700, color: AppColors.ink),
+              ),
+              if (next.dueDate != null)
+                Text(
+                  l.dueOn(formatDate(locale, next.dueDate!)),
+                  style: theme.textTheme.bodySmall?.copyWith(color: AppColors.ink),
+                ),
+            ]),
+          ),
+        ],
       ]),
     );
   }

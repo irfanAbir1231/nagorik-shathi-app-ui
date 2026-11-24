@@ -5,6 +5,8 @@
         android:label="সেবার জানালা"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+        <!-- Skia renderer: avoids flicker seen with Impeller on some MediaTek/Mali phones. -->
+        <meta-data android:name="io.flutter.embedding.android.EnableImpeller" android:value="false" />
         <activity
             android:name=".MainActivity"
             android:exported="true"

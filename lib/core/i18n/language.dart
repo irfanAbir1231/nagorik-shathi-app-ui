@@ -1,7 +1,10 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
-/// Where the language choice is kept. A provider so tests can replace it.
+import '../storage/app_cache.dart';
+
+/// Where the language choice was kept by earlier versions (read once, to carry
+/// it over). A provider so tests can replace it.
 final preferenceStorageProvider = Provider<FlutterSecureStorage>((ref) => const FlutterSecureStorage());
 
 /// The language picked on this phone ('bn' or 'en'), or null if never picked.
@@ -11,17 +14,25 @@ final preferenceStorageProvider = Provider<FlutterSecureStorage>((ref) => const 
 class LanguageController extends Notifier<String?> {
   static const _key = 'sj_language';
 
+  /// Read synchronously, so the first frame is already in the chosen
+  /// language: no flash of Bangla before switching to English.
   @override
   String? build() {
-    _load();
+    final saved = ref.read(appCacheProvider).pref(_key);
+    if (saved == 'bn' || saved == 'en') return saved;
+    _migrate();
     return null;
   }
 
-  Future<void> _load() async {
+  /// Earlier versions kept the choice in the keystore: carry it over once.
+  Future<void> _migrate() async {
     try {
       final saved = await ref.read(preferenceStorageProvider).read(key: _key);
       // Only if nothing was picked while reading.
-      if (state == null && (saved == 'bn' || saved == 'en')) state = saved;
+      if (state == null && (saved == 'bn' || saved == 'en')) {
+        state = saved;
+        ref.read(appCacheProvider).setPref(_key, saved);
+      }
     } catch (_) {
       // No storage (tests, or a broken keystore): use the default language.
     }
@@ -29,11 +40,7 @@ class LanguageController extends Notifier<String?> {
 
   Future<void> set(String language) async {
     state = language;
-    try {
-      await ref.read(preferenceStorageProvider).write(key: _key, value: language);
-    } catch (_) {
-      // Still applied for this session.
-    }
+    ref.read(appCacheProvider).setPref(_key, language);
   }
 }
 

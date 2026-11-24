@@ -31,10 +31,10 @@ class PlanDetailScreen extends ConsumerWidget {
     });
 
     return Scaffold(
-      appBar: AppBar(title: Text(l.planTitle)),
+      appBar: AppBar(flexibleSpace: const AppBarBackdrop(), title: Text(l.planTitle)),
       body: async.when(
         skipLoadingOnReload: true,
-        loading: () => const Center(child: CircularProgressIndicator()),
+        loading: () => const Center(child: DotsLoader()),
         error: (e, _) => ErrorRetry(error: e, onRetry: () => ref.invalidate(planControllerProvider)),
         data: (plans) {
           final plan = plans.where((p) => p.id == planId).firstOrNull;
@@ -201,9 +201,16 @@ class _TaskCard extends ConsumerWidget {
       TaskPriority.low => (l.priorityLow, theme.colorScheme.outline),
     };
 
+    // Flat cards with a thin edge: long task lists scroll smoothly, where a
+    // blurred shadow on every card would not.
     return Card(
       color: done ? AppColors.canvas : Colors.white,
       clipBehavior: Clip.antiAlias,
+      elevation: 0,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(AppRadius.lg),
+        side: BorderSide(color: done ? Colors.transparent : const Color(0xFFDAD6C9)),
+      ),
       child: Semantics(
         checked: done,
         button: true,

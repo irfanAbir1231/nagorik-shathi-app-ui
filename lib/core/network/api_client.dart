@@ -3,8 +3,10 @@ import 'dart:async';
 import 'package:dio/dio.dart';
 
 import '../config.dart';
+import '../storage/app_cache.dart';
 import '../storage/token_store.dart';
 import 'api_result.dart';
+import 'cached.dart';
 
 /// Single HTTP entry point. Widgets never touch Dio.
 ///
@@ -17,7 +19,7 @@ import 'api_result.dart';
 /// tokens and treats a replay as theft, so two parallel refreshes would sign the
 /// user out.
 class ApiClient {
-  ApiClient({required this.tokens, Dio? dio, Dio? refreshDio, this.onSessionExpired})
+  ApiClient({required this.tokens, Dio? dio, Dio? refreshDio, this.onSessionExpired, this.cache})
       : _dio = dio ?? Dio(_options()),
         _refreshDio = refreshDio ?? Dio(_options());
 
@@ -26,7 +28,11 @@ class ApiClient {
   final Dio _dio;
   final Dio _refreshDio; // separate instance: a failed refresh can never recurse.
 
+  /// Where answers of cached GETs are kept, so screens can open from them.
+  final AppCache? cache;
+
   Future<bool>? _refreshing;
+  final _inFlight = <String, Future<Object?>>{};
 
   static BaseOptions _options() => BaseOptions(
         baseUrl: '${AppConfig.apiBaseUrl}${AppConfig.apiPrefix}',
@@ -39,9 +45,53 @@ class ApiClient {
 
   /* ---------------------------------------------------------------- calls */
 
+  /// With [cached], a successful answer is kept on the phone (see [peek]), and
+  /// identical requests made while one is on its way share its answer.
   Future<ApiResult<T>> get<T>(String path,
-          {Map<String, dynamic>? query, required T Function(dynamic data) parse}) =>
-      _send('GET', path, query: query, parse: parse);
+      {Map<String, dynamic>? query, required T Function(dynamic data) parse, bool cached = false}) {
+    final store = cache;
+    if (!cached || store == null) return _send('GET', path, query: query, parse: parse);
+
+    final key = cacheKey(path, query);
+    final shared = _inFlight[key];
+    if (shared is Future<ApiResult<T>>) return shared;
+
+    final generation = store.generation;
+    final request = _send<T>('GET', path, query: query, parse: (data) {
+      final value = parse(data); // Only an answer that parses is kept.
+      if (generation == store.generation) store.put(key, data);
+      return value;
+    });
+    _inFlight[key] = request;
+    request.whenComplete(() {
+      if (identical(_inFlight[key], request)) _inFlight.remove(key);
+    });
+    return request;
+  }
+
+  /// The last answer a cached [get] with the same [path] and [query] received,
+  /// or null if there is none (or it no longer parses).
+  Cached<T>? peek<T>(String path, {Map<String, dynamic>? query, required T Function(dynamic data) parse}) {
+    final entry = cache?.entry(cacheKey(path, query));
+    if (entry == null) return null;
+    try {
+      return Cached(parse(entry.raw), version: entry.changedAt, fresh: entry.fresh);
+    } catch (_) {
+      return null;
+    }
+  }
+
+  /// Updates the kept answer of a cached [get] after a change the server accepted.
+  void patchCached(String path, Object? Function(Object? data) change, {Map<String, dynamic>? query}) =>
+      cache?.patch(cacheKey(path, query), change);
+
+  static String cacheKey(String path, Map<String, dynamic>? query) {
+    final params = [
+      for (final e in (query ?? const <String, dynamic>{}).entries)
+        if (e.value != null) '${e.key}=${e.value}',
+    ]..sort();
+    return 'api:$path?${params.join('&')}';
+  }
 
   /// [authRetry] is false for credential endpoints, where a 401 means
   /// "wrong credentials", not "expired access token".
@@ -97,6 +147,18 @@ class ApiClient {
         return mapDioError<T>(e);
       } catch (e) {
         return Err(ErrorCodes.unknown, e.toString());
+      }
+    }
+
+    // Right after launch there is a refresh token but no access token yet.
+    // Minting one first saves every request a guaranteed 401 round trip.
+    // Joins a refresh already on its way; never starts a second one.
+    if (authRetry && tokens.accessToken == null) {
+      final pending = _refreshing;
+      if (pending != null) {
+        await pending;
+      } else if (await tokens.readRefreshToken() != null && tokens.accessToken == null) {
+        await refreshSession();
       }
     }
 

@@ -37,6 +37,7 @@ class MyListScreen extends ConsumerWidget {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
+        flexibleSpace: const AppBarBackdrop(),
           title: Text(l.navSaved),
           bottom: PreferredSize(
             preferredSize: const Size.fromHeight(60),
@@ -59,12 +60,12 @@ class _SegmentedTabs extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     return Container(
       height: 46,
       padding: const EdgeInsets.all(4),
       decoration: BoxDecoration(
-        color: theme.colorScheme.surfaceContainerHigh,
+        color: Colors.white.withValues(alpha: 0.18),
+        border: Border.all(color: Colors.white.withValues(alpha: 0.4), width: kHairline),
         borderRadius: BorderRadius.circular(24),
       ),
       child: TabBar(
@@ -76,7 +77,7 @@ class _SegmentedTabs extends StatelessWidget {
           boxShadow: [BoxShadow(color: Colors.black.withValues(alpha: 0.08), blurRadius: 6, offset: const Offset(0, 2))],
         ),
         labelColor: AppColors.primary,
-        unselectedLabelColor: theme.colorScheme.onSurfaceVariant,
+        unselectedLabelColor: Colors.white,
         splashBorderRadius: BorderRadius.circular(20),
         tabs: [for (final t in labels) Tab(child: Text(t, maxLines: 1, overflow: TextOverflow.ellipsis))],
       ),
@@ -181,7 +182,7 @@ class _StatusChip extends StatelessWidget {
           onSelected: (_) => onTap(),
           selectedColor: color,
           labelStyle: TextStyle(color: selected ? Colors.white : AppColors.ink, fontWeight: FontWeight.w600),
-          side: BorderSide(color: selected ? color : Theme.of(context).colorScheme.outlineVariant),
+          side: BorderSide(color: selected ? color : Theme.of(context).colorScheme.outlineVariant, width: kHairline),
         ),
       );
 }
@@ -208,8 +209,9 @@ class _SavedCard extends ConsumerWidget {
                 width: 40,
                 height: 40,
                 decoration: BoxDecoration(
-                  color: savedStatusVisual(s).color.withValues(alpha: 0.12),
+                  color: Colors.white,
                   shape: BoxShape.circle,
+                  border: Border.all(color: savedStatusVisual(s).color, width: kHairline),
                 ),
                 child: Icon(savedStatusVisual(s).icon, color: savedStatusVisual(s).color, size: 22),
               ),
@@ -291,8 +293,9 @@ class _SavedCard extends ConsumerWidget {
                   width: 44,
                   height: 44,
                   decoration: BoxDecoration(
-                    color: visual.color.withValues(alpha: 0.12),
+                    color: Colors.white,
                     borderRadius: BorderRadius.circular(14),
+                    border: Border.all(color: visual.color, width: kHairline),
                   ),
                   child: Icon(visual.icon, color: visual.color),
                 ),
@@ -348,8 +351,8 @@ class _SavedCard extends ConsumerWidget {
               Row(children: [
                 Flexible(
                   child: Material(
-                    color: status.color.withValues(alpha: 0.12),
-                    shape: const StadiumBorder(),
+                    color: Colors.white,
+                    shape: StadiumBorder(side: BorderSide(color: status.color, width: kHairline)),
                     child: Tap(
                       customBorder: const StadiumBorder(),
                       onTap: () => _changeStatus(context, ref),

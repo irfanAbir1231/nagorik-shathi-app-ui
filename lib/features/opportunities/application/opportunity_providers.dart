@@ -1,7 +1,11 @@
+import 'dart:async';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/network/api_result.dart';
+import '../../../core/network/cached.dart';
 import '../../../core/providers.dart';
+import '../data/opportunity_repository.dart';
 import '../domain/opportunity.dart';
 
 const _pageSize = 20;
@@ -84,24 +88,46 @@ class OpportunityListState {
 }
 
 /// First page loads in `build` (and reloads whenever a filter changes);
-/// [loadMore] appends the next page.
+/// [loadMore] appends the next page. A first page seen before opens at once
+/// from the phone's copy and is refreshed behind it.
 class OpportunityListController extends AsyncNotifier<OpportunityListState> {
   @override
-  Future<OpportunityListState> build() async {
+  FutureOr<OpportunityListState> build() {
     final filters = ref.watch(opportunityFiltersProvider);
-    final page = (await _fetch(filters, 0)).unwrap();
-    return OpportunityListState(
-      items: page.items,
-      hasMore: page.items.length >= _pageSize,
-      categoryCounts: page.categoryCounts,
+    return cachedFirst(
+      ref,
+      id: opportunityListProvider,
+      peek: () => ref
+          .read(opportunityRepositoryProvider)
+          .cachedList(
+            query: filters.query,
+            category: filters.category,
+            outcome: _outcome(filters),
+            limit: _pageSize,
+            offset: 0,
+          )
+          ?.map(_firstPage),
+      fetch: () async => _firstPage((await _fetch(filters, 0)).unwrap()),
+      onUpdate: (fresh, shown) {
+        // Not over more pages the person has already loaded, or a change in flight.
+        if (identical(state.value, shown)) state = AsyncData(fresh);
+      },
     );
   }
+
+  static OpportunityListState _firstPage(OpportunityPage page) => OpportunityListState(
+        items: page.items,
+        hasMore: page.items.length >= _pageSize,
+        categoryCounts: page.categoryCounts,
+      );
+
+  static String? _outcome(OpportunityFilters f) => f.eligibleOnly ? 'eligible' : null;
 
   Future<ApiResult<OpportunityPage>> _fetch(OpportunityFilters f, int offset) =>
       ref.read(opportunityRepositoryProvider).list(
             query: f.query,
             category: f.category,
-            outcome: f.eligibleOnly ? 'eligible' : null,
+            outcome: _outcome(f),
             limit: _pageSize,
             offset: offset,
           );
@@ -131,12 +157,35 @@ class OpportunityListController extends AsyncNotifier<OpportunityListState> {
 final opportunityListProvider =
     AsyncNotifierProvider<OpportunityListController, OpportunityListState>(OpportunityListController.new);
 
-final opportunityDetailProvider = FutureProvider.autoDispose.family<OpportunityDetail, String>((ref, slug) async {
-  return (await ref.read(opportunityRepositoryProvider).detail(slug)).unwrap();
+/// A programme page opened before shows at once from the phone's copy.
+final opportunityDetailProvider = FutureProvider.autoDispose.family<OpportunityDetail, String>((ref, slug) {
+  final repo = ref.read(opportunityRepositoryProvider);
+  return cachedFirst(
+    ref,
+    id: 'opportunity:$slug',
+    peek: () => repo.cachedDetail(slug),
+    fetch: () async => (await repo.detail(slug)).unwrap(),
+  );
 });
 
 /// A few programmes the citizen is likely eligible for, for the Home tab.
-final recommendedOpportunitiesProvider = FutureProvider.autoDispose<List<OpportunitySummary>>((ref) async {
-  final page = (await ref.read(opportunityRepositoryProvider).list(outcome: 'eligible', limit: 5)).unwrap();
-  return page.items;
+final recommendedOpportunitiesProvider = FutureProvider.autoDispose<List<OpportunitySummary>>((ref) {
+  final repo = ref.read(opportunityRepositoryProvider);
+  return cachedFirst(
+    ref,
+    id: 'recommended',
+    peek: () => repo.cachedList(outcome: 'eligible', limit: 5)?.map((p) => p.items),
+    fetch: () async => (await repo.list(outcome: 'eligible', limit: 5)).unwrap().items,
+  );
 });
+
+/// Loads the pages of [items] into the phone's copy in the background, one at
+/// a time, so opening any of them shows the page at once. Pages already kept
+/// are skipped; they are refreshed when opened.
+Future<void> prefetchDetails(OpportunityRepository repo, Iterable<OpportunitySummary> items) async {
+  for (final item in items) {
+    if (repo.cachedDetail(item.slug) != null) continue;
+    final result = await repo.detail(item.slug);
+    if (result is Err) return; // Offline or failing: try again next time.
+  }
+}
