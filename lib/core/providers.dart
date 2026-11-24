@@ -7,6 +7,7 @@ import '../features/plans/data/plan_repository.dart';
 import '../features/saved/data/saved_repository.dart';
 import '../features/opportunities/data/opportunity_repository.dart';
 import 'network/api_client.dart';
+import 'storage/app_cache.dart';
 import 'storage/token_store.dart';
 
 final tokenStoreProvider = Provider<TokenStore>((ref) => SecureTokenStore());
@@ -14,6 +15,7 @@ final tokenStoreProvider = Provider<TokenStore>((ref) => SecureTokenStore());
 final apiClientProvider = Provider<ApiClient>((ref) {
   return ApiClient(
     tokens: ref.watch(tokenStoreProvider),
+    cache: ref.watch(appCacheProvider),
     // The refresh token was rejected: drop to the sign-in screen.
     onSessionExpired: () => ref.read(authControllerProvider.notifier).sessionExpired(),
   );

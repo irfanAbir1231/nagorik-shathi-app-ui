@@ -56,6 +56,9 @@ class _OpportunityDetailScreenState extends ConsumerState<OpportunityDetailScree
 
     return Scaffold(
       appBar: AppBar(
+        foregroundColor: AppColors.ink,
+        shape: const RoundedRectangleBorder(),
+        scrolledUnderElevation: 1,
         // Tinted to blend into the hero, white once content scrolls under it.
         backgroundColor: WidgetStateColor.resolveWith(
           (states) => states.contains(WidgetState.scrolledUnder) ? Colors.white : heroTop,
@@ -325,7 +328,7 @@ class _Fact extends StatelessWidget {
         Container(
           width: 40,
           height: 40,
-          decoration: BoxDecoration(color: color.withValues(alpha: 0.12), shape: BoxShape.circle),
+          decoration: BoxDecoration(color: Colors.white, shape: BoxShape.circle, border: Border.all(color: color, width: kHairline)),
           child: Icon(icon, size: 22, color: color),
         ),
         const SizedBox(height: 6),
@@ -451,7 +454,7 @@ class _RuleRow extends StatelessWidget {
         Container(
           width: 24,
           height: 24,
-          decoration: BoxDecoration(color: color.withValues(alpha: 0.14), shape: BoxShape.circle),
+          decoration: BoxDecoration(color: Colors.white, shape: BoxShape.circle, border: Border.all(color: color, width: kHairline)),
           child: Icon(icon, size: 16, color: color, semanticLabel: label),
         ),
         const SizedBox(width: 10),
@@ -862,7 +865,7 @@ class _ActionBarState extends ConsumerState<_ActionBar> {
                   padding: EdgeInsets.zero,
                   minimumSize: const Size(52, 52),
                   foregroundColor: isSaved ? AppColors.primary : null,
-                  side: BorderSide(color: isSaved ? AppColors.primary : Theme.of(context).colorScheme.outlineVariant),
+                  side: BorderSide(color: isSaved ? AppColors.primary : Theme.of(context).colorScheme.outlineVariant, width: kHairline),
                 ),
                 onPressed: _toggleSave,
                 child: Icon(

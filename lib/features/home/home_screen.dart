@@ -18,6 +18,7 @@ import 'widgets/compact_opportunity_card.dart';
 import 'widgets/home_header.dart';
 import 'widgets/progress_card.dart';
 import 'widgets/quick_actions.dart';
+import 'widgets/snap_carousel.dart';
 
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
@@ -78,17 +79,17 @@ class HomeScreen extends ConsumerWidget {
                 user: user,
                 onSearch: (q) => browse(query: q),
                 onSpeak: speak,
-                onProfile: () => context.go('/profile'),
               ),
-              SliverToBoxAdapter(
+              _Box(
                 child: Padding(
-                  padding: const EdgeInsets.fromLTRB(16, 20, 16, 0),
+                  // Room below and beside the card, so its shadow isn't cut off by the section's repaint layer.
+                  padding: const EdgeInsets.fromLTRB(16, 20, 16, 26),
                   child: FadeSlideIn(index: 0, child: ProgressCard(onAsk: ask)),
                 ),
               ),
-              SliverToBoxAdapter(
+              _Box(
                 child: Padding(
-                  padding: const EdgeInsets.only(top: 20),
+                  padding: EdgeInsets.zero,
                   child: FadeSlideIn(index: 1, child: QuickActions(
                     onSpeak: speak,
                     onMyList: () => context.go('/my-list'),
@@ -97,17 +98,17 @@ class HomeScreen extends ConsumerWidget {
                   )),
                 ),
               ),
-              SliverToBoxAdapter(child: SectionHeader(title: l.homeCategories, icon: Icons.grid_view_rounded)),
-              SliverToBoxAdapter(child: FadeSlideIn(index: 2, child: CategoryGrid(onPick: (c) => browse(category: c)))),
+              _Box(child: SectionHeader(title: l.homeCategories, icon: Icons.grid_view_rounded)),
+              _Box(child: FadeSlideIn(index: 2, child: CategoryGrid(onPick: (c) => browse(category: c)))),
               if (showClosing) ...[
-                SliverToBoxAdapter(
+                _Box(
                   child: SectionHeader(
                     title: l.closingSoon,
                     icon: Icons.alarm_rounded,
                     iconColor: const Color(0xFFC62828),
                   ),
                 ),
-                SliverToBoxAdapter(
+                _Box(
                   child: _CardStrip(
                     items: closing,
                     showDaysLeft: true,
@@ -116,15 +117,15 @@ class HomeScreen extends ConsumerWidget {
                   ),
                 ),
               ],
-              SliverToBoxAdapter(
+              _Box(
                 child: SectionHeader(
                   title: l.recommendedForYou,
                   icon: Icons.auto_awesome_rounded,
-                  iconColor: AppColors.sun,
+                  iconColor: AppColors.primary,
                   onSeeAll: browse,
                 ),
               ),
-              SliverToBoxAdapter(
+              _Box(
                 child: _CardStrip(
                   items: recommended,
                   emptyText: l.noRecommendations,
@@ -132,7 +133,7 @@ class HomeScreen extends ConsumerWidget {
                   onRetry: () => ref.invalidate(recommendedOpportunitiesProvider),
                 ),
               ),
-              const SliverToBoxAdapter(child: _TrustNote()),
+              const _Box(child: _TrustNote()),
               // Room for the docked Ask button, which overlaps the bottom of the page.
               const SliverToBoxAdapter(child: SizedBox(height: 48)),
             ],
@@ -183,19 +184,13 @@ class _CardStrip extends StatelessWidget {
             child: Text(emptyText ?? ''),
           );
         }
-        // IntrinsicHeight makes every card as tall as the tallest, so long
-        // titles or large text grow the row instead of overflowing a fixed height.
-        return SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          padding: _padding,
-          child: IntrinsicHeight(
-            child: Row(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-              for (var i = 0; i < list.length; i++) ...[
-                if (i > 0) const SizedBox(width: 12),
-                CompactOpportunityCard(item: list[i], showDaysLeft: showDaysLeft, onTap: () => onOpen(list[i])),
-              ],
-            ]),
-          ),
+        return SnapCarousel(
+          itemWidth: CompactOpportunityCard.width,
+          gap: 12,
+          children: [
+            for (final item in list)
+              CompactOpportunityCard(item: item, showDaysLeft: showDaysLeft, onTap: () => onOpen(item)),
+          ],
         );
       },
     );
@@ -225,4 +220,14 @@ class _TrustNote extends StatelessWidget {
       ),
     );
   }
+}
+
+/// A sliver box with its own repaint layer, so scrolling moves the cached
+/// picture of each section instead of redrawing its cards and shadows each frame.
+class _Box extends StatelessWidget {
+  const _Box({required this.child});
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) => SliverToBoxAdapter(child: RepaintBoundary(child: child));
 }

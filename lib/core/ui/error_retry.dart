@@ -17,25 +17,43 @@ class ErrorRetry extends StatelessWidget {
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context);
     final theme = Theme.of(context);
-    final err = error is ApiFailure ? (error as ApiFailure).err : const Err<dynamic>(ErrorCodes.unknown, '');
+    final err = error is ApiFailure
+        ? (error as ApiFailure).err
+        : const Err<dynamic>(ErrorCodes.unknown, '');
     return Center(
       child: SingleChildScrollView(
         padding: const EdgeInsets.all(24),
-        child: Column(mainAxisSize: MainAxisSize.min, children: [
-          IllustratedBadge(
-            icon: err.isNetwork ? Icons.wifi_off_rounded : Icons.cloud_off_rounded,
-            color: AppColors.warning,
-            size: 72,
-          ),
-          const SizedBox(height: 12),
-          Text(errorText(l, err), textAlign: TextAlign.center, style: theme.textTheme.bodyLarge),
-          if (err.requestId != null) ...[
-            const SizedBox(height: 4),
-            Text(l.errReference(err.requestId!), style: theme.textTheme.bodySmall),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            IllustratedBadge(
+              icon: err.isNetwork
+                  ? Icons.wifi_off_rounded
+                  : Icons.cloud_off_rounded,
+              color: AppColors.warning,
+              size: 72,
+            ),
+            const SizedBox(height: 12),
+            Text(
+              errorText(l, err),
+              textAlign: TextAlign.center,
+              style: theme.textTheme.bodyLarge,
+            ),
+            if (err.requestId != null) ...[
+              const SizedBox(height: 4),
+              Text(
+                l.errReference(err.requestId!),
+                style: theme.textTheme.bodySmall,
+              ),
+            ],
+            const SizedBox(height: 12),
+            FilledButton.tonalIcon(
+              onPressed: onRetry,
+              icon: const Icon(Icons.refresh_rounded),
+              label: Text(l.retry),
+            ),
           ],
-          const SizedBox(height: 12),
-          FilledButton.tonalIcon(onPressed: onRetry, icon: const Icon(Icons.refresh_rounded), label: Text(l.retry)),
-        ]),
+        ),
       ),
     );
   }

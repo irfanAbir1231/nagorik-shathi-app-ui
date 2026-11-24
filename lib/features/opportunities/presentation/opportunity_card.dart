@@ -58,8 +58,9 @@ class OpportunityCard extends StatelessWidget {
                 width: 48,
                 height: 48,
                 decoration: BoxDecoration(
-                  color: visual.color.withValues(alpha: 0.12),
+                  color: Colors.white,
                   borderRadius: BorderRadius.circular(14),
+                  border: Border.all(color: visual.color, width: kHairline),
                 ),
                 child: Icon(visual.icon, color: visual.color, size: 26),
               ),

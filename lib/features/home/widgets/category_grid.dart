@@ -85,9 +85,10 @@ class _Tile extends StatelessWidget {
                 gradient: LinearGradient(
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
-                  colors: [color.withValues(alpha: 0.20), color.withValues(alpha: 0.08)],
+                  colors: const [Colors.white, Colors.white],
                 ),
                 shape: BoxShape.circle,
+                border: Border.all(color: color, width: kHairline),
               ),
               child: Icon(icon, color: color, size: 30),
             ),

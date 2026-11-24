@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/network/api_result.dart';
+import '../../../core/network/cached.dart';
 import '../../../core/providers.dart';
 import '../../opportunities/domain/opportunity.dart';
 import '../../plans/domain/plan.dart';
@@ -9,14 +10,25 @@ import '../../plans/domain/plan.dart';
 ///
 /// The API has no sort-by-deadline option, so this sorts the first page on the
 /// phone. A programme closing soon that is not on that page will not show here.
-final closingSoonProvider = FutureProvider.autoDispose<List<OpportunitySummary>>((ref) async {
-  final page = (await ref.read(opportunityRepositoryProvider).list(limit: 20)).unwrap();
+/// It is the same request as the unfiltered Programmes tab, so the two share
+/// one answer.
+final closingSoonProvider = FutureProvider.autoDispose<List<OpportunitySummary>>((ref) {
+  final repo = ref.read(opportunityRepositoryProvider);
+  return cachedFirst(
+    ref,
+    id: 'closingSoon',
+    peek: () => repo.cachedList(limit: 20)?.map(_closing),
+    fetch: () async => _closing((await repo.list(limit: 20)).unwrap()),
+  );
+});
+
+List<OpportunitySummary> _closing(OpportunityPage page) {
   final open = [
     for (final o in page.items)
       if (o.deadline != null && daysUntil(o.deadline!) >= 0) o,
   ]..sort((a, b) => a.deadline!.compareTo(b.deadline!));
   return open.take(8).toList();
-});
+}
 
 /// Whole calendar days from today to [date], in the phone's time zone.
 /// 0 means today is the last day; negative means it has passed.

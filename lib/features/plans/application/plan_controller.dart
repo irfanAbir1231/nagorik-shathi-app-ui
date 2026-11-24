@@ -1,12 +1,28 @@
+import 'dart:async';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/network/api_result.dart';
+import '../../../core/network/cached.dart';
 import '../../../core/providers.dart';
 import '../domain/plan.dart';
 
 class PlanController extends AsyncNotifier<List<ActionPlan>> {
+  /// Opens from the phone's copy when there is one, refreshed behind it.
   @override
-  Future<List<ActionPlan>> build() async => (await ref.read(planRepositoryProvider).list()).unwrap();
+  FutureOr<List<ActionPlan>> build() {
+    final repo = ref.read(planRepositoryProvider);
+    return cachedFirst(
+      ref,
+      id: planControllerProvider,
+      peek: repo.cachedList,
+      fetch: () async => (await repo.list()).unwrap(),
+      onUpdate: (fresh, shown) {
+        // Never over a tick the person made meanwhile.
+        if (identical(state.value, shown)) state = AsyncData(fresh);
+      },
+    );
+  }
 
   /// Creates (or fetches the existing) plan for a programme.
   Future<ApiResult<ActionPlan>> createFor(String opportunityId) async {

@@ -11,13 +11,11 @@ class HomeHeader extends StatefulWidget {
     required this.user,
     required this.onSearch,
     required this.onSpeak,
-    required this.onProfile,
   });
 
   final AuthUser? user;
   final ValueChanged<String> onSearch;
   final VoidCallback onSpeak;
-  final VoidCallback onProfile;
 
   @override
   State<HomeHeader> createState() => _HomeHeaderState();
@@ -59,8 +57,8 @@ class _HomeHeaderState extends State<HomeHeader> {
         maxExtent: maxExtent,
         top: top,
         searchHeight: searchHeight,
-        builder: _buildContent,
-        search: _buildSearch,
+        content: RepaintBoundary(child: _buildContent(context)),
+        search: _buildSearch(context),
       ),
     );
   }
@@ -97,19 +95,17 @@ class _HomeHeaderState extends State<HomeHeader> {
             ],
           ),
         ),
-        const SizedBox(width: 12),
-        _Avatar(name: name, onTap: widget.onProfile),
       ],
     );
   }
 
-  Widget _buildSearch(BuildContext context, double elevation) {
+  Widget _buildSearch(BuildContext context) {
     final l = AppLocalizations.of(context);
     final theme = Theme.of(context);
     return Material(
       color: theme.colorScheme.surface,
       shape: const StadiumBorder(),
-      elevation: elevation,
+      elevation: 4,
       shadowColor: Colors.black38,
       child: TextField(
         controller: _search,
@@ -143,7 +139,7 @@ class _HeaderDelegate extends SliverPersistentHeaderDelegate {
     required this.maxExtent,
     required this.top,
     required this.searchHeight,
-    required this.builder,
+    required this.content,
     required this.search,
   });
 
@@ -153,8 +149,8 @@ class _HeaderDelegate extends SliverPersistentHeaderDelegate {
   final double maxExtent;
   final double top;
   final double searchHeight;
-  final WidgetBuilder builder;
-  final Widget Function(BuildContext, double) search;
+  final Widget content;
+  final Widget search;
 
   @override
   Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
@@ -166,13 +162,22 @@ class _HeaderDelegate extends SliverPersistentHeaderDelegate {
     return HeroBackdrop(
       radius: 28 * (1 - t) + 18 * t,
       child: Stack(children: [
-        Positioned(
-          left: 20,
-          right: 20,
-          top: top + 16 - shrinkOffset * 0.4,
-          child: IgnorePointer(
-            ignoring: fade < 0.5,
-            child: Opacity(opacity: fade, child: builder(context)),
+        // Clipped below the status bar, so the greeting never slides under the
+        // clock and battery as it scrolls away.
+        Positioned.fill(
+          top: top,
+          child: ClipRect(
+            child: Stack(children: [
+              Positioned(
+                left: 20,
+                right: 20,
+                top: 16 - shrinkOffset * 0.4,
+                child: IgnorePointer(
+                  ignoring: fade < 0.5,
+                  child: fade >= 1 ? content : (fade <= 0 ? const SizedBox.shrink() : Opacity(opacity: fade, child: content)),
+                ),
+              ),
+            ]),
           ),
         ),
         Positioned(
@@ -180,7 +185,7 @@ class _HeaderDelegate extends SliverPersistentHeaderDelegate {
           right: 16,
           bottom: bottomGap,
           height: searchHeight,
-          child: search(context, 3 + 3 * t),
+          child: search,
         ),
       ]),
     );
@@ -213,43 +218,4 @@ class _DistrictChip extends StatelessWidget {
       ],
     ),
   );
-}
-
-class _Avatar extends StatelessWidget {
-  const _Avatar({required this.name, required this.onTap});
-  final String name;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    final l = AppLocalizations.of(context);
-    final initial = name.isEmpty ? '' : name.characters.first.toUpperCase();
-    return Semantics(
-      button: true,
-      label: l.profileTitle,
-      child: Tap(
-        onTap: onTap,
-        customBorder: const CircleBorder(),
-        child: Container(
-          width: 52,
-          height: 52,
-          alignment: Alignment.center,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: AppColors.sun,
-            border: Border.all(color: Colors.white, width: 2.5),
-          ),
-          child: ExcludeSemantics(
-            child: initial.isEmpty
-                ? const Icon(Icons.person, color: AppColors.ink)
-                : Text(
-                    initial,
-                    style: Theme.of(context).textTheme.titleLarge
-                        ?.copyWith(color: AppColors.ink, fontWeight: FontWeight.w700),
-                  ),
-          ),
-        ),
-      ),
-    );
-  }
 }

@@ -26,4 +26,13 @@ class AuthUser {
         language: (json['language'] as String?) == 'en' ? 'en' : 'bn',
         district: json['district'] as String?,
       );
+
+  Map<String, Object?> toJson() => {
+        'id': id,
+        'name': name,
+        'phone': phone,
+        'role': role,
+        'language': language,
+        'district': district,
+      };
 }
